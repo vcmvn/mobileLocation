@@ -26,14 +26,13 @@ const Location = () => {
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           );
           setData(granted);
-          setLocationData(PermissionsAndroid.RESULTS.GRANTED)
+          setLocationData(PermissionsAndroid.RESULTS.GRANTED);
           console.log('granted===>' + granted);
           console.log(
             'grantedPermission==>' + PermissionsAndroid.RESULTS.GRANTED,
           );
-          
-          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
 
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             Alert.alert(
               '',
               'Permission Granted',
@@ -82,7 +81,7 @@ const Location = () => {
           console.warn(err);
         }
       }
-     
+
       // Calling the Location permission function
       requestLocationPermission();
     } else if ((Platform.OS = 'ios')) {
@@ -135,11 +134,11 @@ const Location = () => {
   const sendRequestWithLocation = async () => {
     Geolocation.getCurrentPosition(
       //Will give you the current location
-      
+
       position => {
-        startTime.current = new Date();
-        console.log("data"+data)
-        console.log("data2"+locationData)
+        startTime.current = new Date().getTime();
+        console.log('data' + data);
+        console.log('data2' + locationData);
         console.log('startTime====>' + startTime.current);
         //getting the Longitude from the location json
         const currentLongitude = JSON.stringify(position.coords.longitude);
@@ -149,7 +148,7 @@ const Location = () => {
         const currentLatitude = JSON.stringify(position.coords.latitude);
         // alert('Latitude: ' + currentLatitude)
         console.log('Latitude===> ' + currentLatitude);
-        endTime.current = new Date();
+        endTime.current = new Date().getTime();
         console.log('endTime====>' + endTime.current);
         const et = (startTime.current - endTime.current) / 1000; // get the seconds
         console.log('TotalTime===>' + et + 'ms');
@@ -173,7 +172,7 @@ const Location = () => {
           flexDirection: 'row',
           marginHorizontal: 50,
         }}>
-        <View>
+        <View style={{backgroundColor: 'white', borderRadius: 10,padding:4}}>
           <TouchableOpacity
             onPress={() => onCheckLocationPermission()}
             style={{
@@ -181,17 +180,29 @@ const Location = () => {
               justifyContent: 'center',
               // backgroundColor: 'blue',
             }}>
-            <Text>Get location permission</Text>
+            <Text style={{color: 'black'}}>Get location permission</Text>
           </TouchableOpacity>
         </View>
-        <View style={{marginHorizontal: 90, }}>
-          {data !== "" && data!== undefined && data!== null && data === locationData ? (
+        <View
+          style={{
+            marginHorizontal: 90,
+            backgroundColor: 'white',
+            borderRadius: 10,
+            height: 45,
+            alignItems: 'center',
+            justifyContent:"center",
+            padding:4
+          }}>
+          {data !== '' &&
+          data !== undefined &&
+          data !== null &&
+          data === locationData ? (
             <TouchableOpacity onPress={() => sendRequestWithLocation()}>
-              <Text>Get Lat/Long</Text>
+              <Text style={{color: 'black'}}>Get Lat/Long</Text>
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity disabled >
-              <Text>Give permission first</Text>
+            <TouchableOpacity disabled>
+              <Text style={{color: 'black'}}>Give permission first</Text>
             </TouchableOpacity>
           )}
         </View>
